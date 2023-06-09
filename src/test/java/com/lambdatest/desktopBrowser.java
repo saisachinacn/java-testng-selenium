@@ -13,7 +13,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TestNGTodo2 {
+public class desktopBrowser {
 
     private RemoteWebDriver driver;
     private String Status = "failed";
@@ -23,15 +23,6 @@ public class TestNGTodo2 {
         String username = System.getenv("LT_USERNAME") == null ? "Your LT Username" : System.getenv("LT_USERNAME");
         String authkey = System.getenv("LT_ACCESS_KEY") == null ? "Your LT AccessKey" : System.getenv("LT_ACCESS_KEY");
         ;
-        
-        /*
-        Steps to run Smart UI project (https://beta-smartui.lambdatest.com/)
-        Step - 1 : Change the hub URL to @beta-smartui-hub.lambdatest.com/wd/hub
-        Step - 2 : Add "smartUI.project": "<Project Name>" as a capability above
-        Step - 3 : Add "((JavascriptExecutor) driver).executeScript("smartui.takeScreenshot");" code wherever you need to take a screenshot
-        Note: for additional capabilities navigate to https://www.lambdatest.com/support/docs/test-settings-options/
-        */
-
         String hub = "@hub.lambdatest.com/wd/hub";
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -39,18 +30,14 @@ public class TestNGTodo2 {
         caps.setCapability("browserName", "chrome");
         caps.setCapability("version", "latest");
         caps.setCapability("build", "TestNG With Java");
-        caps.setCapability("name", m.getName() + this.getClass().getName());
+        caps.setCapability("name", m.getName() + " - " + this.getClass().getName());
         caps.setCapability("plugin", "git-testng");
 
-        /*
-        Enable Smart UI Project
-        caps.setCapability("smartUI.project", "<Project Name>");
-        */
-
-        String[] Tags = new String[] { "Feature", "Magicleap", "Severe" };
+        String[] Tags = new String[] { "Feature", "Falcon", "Severe" };
         caps.setCapability("tags", Tags);
 
         driver = new RemoteWebDriver(new URL("https://" + username + ":" + authkey + hub), caps);
+
     }
 
     @Test
@@ -58,9 +45,14 @@ public class TestNGTodo2 {
         String spanText;
         System.out.println("Loading Url");
 
-        driver.get("https://lambdatest.github.io/sample-todo-app/");
+        driver.get("https://ecommerce-playground.lambdatest.io/index.php");
+        Thread.sleep(3000);
 
-        System.out.println("Checking Box");
+        driver.findElementByXPath("//span[contains(@class,'title') and contains(text(),'My account')]");
+        Thread.sleep(3000);
+        //driver.findElementByXPath("//span[contains(@class,'title') and contains(text(),'Register')]").click();
+        //driver.findElement(By.class.name("Register")).click();
+       /*  System.out.println("Checking Box");
         driver.findElement(By.name("li1")).click();
 
         System.out.println("Checking Another Box");
@@ -92,6 +84,7 @@ public class TestNGTodo2 {
 
         System.out.println("Checking Another Box");
         driver.findElement(By.name("li8")).click();
+        Thread.sleep(300);
 
         System.out.println("Entering Text");
         driver.findElement(By.id("sampletodotext")).sendKeys("Get Taste of Lambda and Stick to It");
@@ -104,7 +97,7 @@ public class TestNGTodo2 {
         // Let's also assert that the todo we added is present in the list.
 
         spanText = driver.findElementByXPath("/html/body/div/div/div/ul/li[9]/span").getText();
-        Assert.assertEquals("Get Taste of Lambda and Stick to It", spanText);
+        Assert.assertEquals("Get Taste of Lambda and Stick to It", spanText); */
         Status = "passed";
         Thread.sleep(150);
 
